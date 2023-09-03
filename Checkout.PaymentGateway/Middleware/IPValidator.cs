@@ -9,14 +9,13 @@ using Serilog;
 
 namespace Checkout.PaymentGateway.Middleware
 {
-    // You may need to install the Microsoft.AspNetCore.Http.Abstractions package into your project
     public class IPValidator : ActionFilterAttribute
     {
         private readonly HashSet<IPAddress> _merchantIpAddress;
 
         public IPValidator(List<IpDto> safeList)
         {
-            _merchantIpAddress = safeList.SelectMany(s => s.Ips.Select(IPAddress.Parse)).ToHashSet(); //Split(";").ToList();
+            _merchantIpAddress = safeList.SelectMany(s => s.Ips.Select(IPAddress.Parse)).ToHashSet();
         }
 
         public override void OnActionExecuting(ActionExecutingContext context)
@@ -24,8 +23,6 @@ namespace Checkout.PaymentGateway.Middleware
             var remoteIp = context.HttpContext.Connection.RemoteIpAddress;
             
             Log.Information("Remote IpAddress: {@RemoteIp}", remoteIp);
-            
-            var badIp = true;
 
             if (remoteIp != null && remoteIp.IsIPv4MappedToIPv6)
             {

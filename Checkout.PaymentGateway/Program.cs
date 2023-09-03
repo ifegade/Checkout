@@ -60,6 +60,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<IPaymentService, PaymentService>();
 builder.Services.AddSingleton<CKOSimulator>();
 builder.Services.AddSingleton<IMessagingService, MessagingService>();
+builder.Services.AddSingleton<IMerchantService, MerchantService>();
 
 var merchantIps = new List<IpDto>();
 Configuration.GetSection(AppConstants.MerchantIPAddress).Bind(merchantIps);

@@ -12,6 +12,7 @@ namespace Checkout.PaymentGateway.Infrastructure;
 public interface IPaymentService
 {
     IEnumerable<CurrencyDto> GetCurrency(int? id);
+    Task<bool> CurrencyExist(int id);
     Task<IEnumerable<TransactionDto>> GetTransaction(string merchantRef, string tRef);
     Task<ResponseDto<string>> MakePayments(PaymentDto content);
 }
@@ -41,6 +42,11 @@ public class PaymentService : IPaymentService
         return id.HasValue ? 
             _currencies.Where(s =>  s.Id == id ) :
             _currencies;
+    }
+
+    public async Task<bool> CurrencyExist(int id)
+    {
+        return _currencies.Any(s => s.Id == id);
     }
 
     public async Task<IEnumerable<TransactionDto>> GetTransaction(string merchantRef, string tRef)
