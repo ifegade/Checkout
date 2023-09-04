@@ -15,8 +15,6 @@ using System.Text.Json.Serialization;
 using Checkout.PaymentGateway.Dto;
 using Checkout.PaymentGateway.Infrastructure;
 using Checkout.PaymentGateway.Simulator;
-using Checkout.PaymentGateway.Validator;
-using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.HttpLogging;
@@ -59,7 +57,7 @@ builder.Services.AddControllers()
                 .SelectMany(v => v.Errors)
                 .Select(v => v.ErrorMessage)
                 .ToList();
-            
+
             var response =
                 new ResponseDto<string>(ResponseCode.Unsuccessful, string.Join('\n', errors));
 
@@ -105,6 +103,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseHttpLogging();
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
