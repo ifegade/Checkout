@@ -19,6 +19,12 @@ public class ResponseDto<T>
         this.response_message = message;
     }
     
+    public ResponseDto(ResponseCode code, string message) : this()
+    {
+        this.response_code = code;
+        this.response_message = message;
+    }
+    
     public ResponseDto(T data, string message) : this()
     {
         this.response_code = ResponseCode.Successful;

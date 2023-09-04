@@ -9,10 +9,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Checkout.PaymentGateway.Controllers
 {
-    [ServiceFilter(typeof(IPValidator))]
     [ApiController]
     [Route("api/[controller]")]
-    public class PaymentController : Controller
+    [ServiceFilter(typeof(IPValidator))]
+    public class PaymentController : ControllerBase
     {
         private readonly IPaymentService _paymentService;
         public PaymentController(IPaymentService paymentService)
@@ -22,9 +22,9 @@ namespace Checkout.PaymentGateway.Controllers
         }
         // GET: /<controller>/
         [HttpPost("MakePayment")]
-        public IActionResult MakePayment([FromBody] PaymentDto content)
+        public async Task<IActionResult> MakePayment([FromBody] PaymentDto content)
         {
-            return Ok(_paymentService.MakePayments(content));
+            return Ok(await _paymentService.MakePayments(content));
         }
 
         [HttpGet("GetTransaction")]

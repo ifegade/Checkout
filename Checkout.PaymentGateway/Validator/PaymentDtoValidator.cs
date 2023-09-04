@@ -15,7 +15,6 @@ public class PaymentDtoValidator
             .GreaterThan(0)
             .WithMessage("Amount must be greater than 0.");
 
-
         RuleFor(s => s)
             .MustAsync(async (request, context) =>
                 {
