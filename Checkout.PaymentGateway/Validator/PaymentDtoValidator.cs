@@ -47,7 +47,7 @@ public class PaymentDtoValidator
         RuleFor(s => s.Card.CVV)
             .NotNull()
             .NotEmpty()
-            .Must(s => s.Length == 3 && Int16.TryParse(s, out _))
+            .Must(s => s?.Length == 3 && Int16.TryParse(s, out _))
             .WithMessage("Card CVV is Invalid");
 
         RuleFor(s => s.Card.Year)
