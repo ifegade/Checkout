@@ -16,3 +16,15 @@ Get Transaction
   - With Transaction ID or
   - With Both
 Get Currency
+
+#### Library Used
+Automapper (Object transformation)
+Fluent Validation (Model Validation)
+Swagger (API test in dev environment)
+Polly (Retry)
+Seriolog (Logging)
+Shoudly (Test Assertions)
+NSubstitute (Mock)
+
+#### Implementation
+
