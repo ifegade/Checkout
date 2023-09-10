@@ -27,6 +27,11 @@ Shoudly (Test Assertions)
 NSubstitute (Mock)
 
 #### Implementation
+---- Controller
+--------- Service
+-------------- Repository
+
+No actual db was used in this implementation, reason why I declare the Table Model repository as Singleton so as to keep the state of application
 
 #### Screenshots
 Make Payment - https://127.0.0.1:7295/api/payment/makepayment
@@ -35,6 +40,9 @@ Get Transaction(s) - https://127.0.0.1:7295/api/payment/getcurrency
 <img width="1049" alt="image" src="https://github.com/ifegade/Checkout/assets/3215021/a89ac7ac-1c1e-4e57-abc4-05bef22ca719">
 Get Currency - https://127.0.0.1:7295/api/payment/getcurrency
 <img width="1049" alt="image" src="https://github.com/ifegade/Checkout/assets/3215021/9b3dcf66-411b-45e5-911b-8abc22e5a2bd">
+Unit Test Coverage
+<img width="554" alt="image" src="https://github.com/ifegade/Checkout/assets/3215021/0c36dc70-e0f7-4885-8740-829dbf192359">
+
 
 
 
