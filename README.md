@@ -18,7 +18,7 @@ Get Transaction
 Get Currency
 
 #### Library Used
--- Automapper (Object transformation)
+-- Automapper (Object transformation) <br />
 -- Fluent Validation (Model Validation)
 -- Swagger (API test in dev environment)
 -- Polly (Retry)
