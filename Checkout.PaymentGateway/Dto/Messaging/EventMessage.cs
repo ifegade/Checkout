@@ -1,5 +1,3 @@
-using System;
-
 namespace Checkout.PaymentGateway.Dto.Messaging;
 
 public class EventMessage

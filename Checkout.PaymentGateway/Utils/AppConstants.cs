@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Checkout.PaymentGateway.Utils;
+﻿namespace Checkout.PaymentGateway.Utils;
 
 public static class AppConstants
 {

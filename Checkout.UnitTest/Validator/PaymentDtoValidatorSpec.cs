@@ -5,17 +5,12 @@ using Checkout.UnitTest.Mock;
 using FluentValidation.TestHelper;
 using NSubstitute;
 using Shouldly;
-using NUnit.Framework;
 
 namespace Checkout.UnitTest.Validator;
 
 [TestFixture]
 public class PaymentDtoValidatorSpec
 {
-    private PaymentDtoValidator _validator;
-    private IPaymentService _paymentService;
-    private IMerchantService _merchantService;
-
     [SetUp]
     public void SetUp()
     {
@@ -31,6 +26,10 @@ public class PaymentDtoValidatorSpec
         _merchantService = null;
         _validator = null;
     }
+
+    private PaymentDtoValidator _validator;
+    private IPaymentService _paymentService;
+    private IMerchantService _merchantService;
 
     [Test]
     public void Amount_ShouldHaveValidationError_WhenAmountIsZero()
@@ -50,7 +49,7 @@ public class PaymentDtoValidatorSpec
         var paymentDto = new PaymentDto
         {
             Amount = 100, Merchant = new MerchantDto { Id = "a32db69f-3794-4674-b58e-36fcb6319924" }, CurrencyId = 1,
-            Card = new CardDto()
+            Card = new CardDto
             {
                 CardNumber = "378282246310005",
                 CardName = "Test 01",

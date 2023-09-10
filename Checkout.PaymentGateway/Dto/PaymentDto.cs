@@ -4,8 +4,8 @@ public class PaymentDto
 {
     public PaymentDto()
     {
-        Card = new();
-        Merchant = new();
+        Card = new CardDto();
+        Merchant = new MerchantDto();
     }
 
     public CardDto Card { get; set; }

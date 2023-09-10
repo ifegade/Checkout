@@ -20,7 +20,7 @@ public class EncryptionServices : IEncryptionServices
 {
     private const string EncryptedValuePrefix = "EncryptedValue:";
 
-    readonly byte[] key = new byte[32] // 32 bytes = 256-bit.
+    private readonly byte[] key = new byte[32] // 32 bytes = 256-bit.
     {
         73, 84, 28, 39, 182, 122, 193, 73, 43, 71, 106, 142, 76, 16, 54, 19, 21, 115, 138, 75, 45, 114, 41, 79, 181,
         196, 40, 148, 154, 81, 173, 56
@@ -29,13 +29,11 @@ public class EncryptionServices : IEncryptionServices
     public string DecryptString(string text)
     {
         if (string.IsNullOrWhiteSpace(text) || !IsEncrypted(text))
-        {
             // There is no need to decrypt null/empty or unencrypted text.
             return text;
-        }
 
         // Parse the vector from the encrypted data.
-        byte[] vector = Convert.FromBase64String(text.Split(';')[0].Split(':')[1]);
+        var vector = Convert.FromBase64String(text.Split(';')[0].Split(':')[1]);
 
         // Decrypt and return the plain text.
         return Decrypt(Convert.FromBase64String(text.Split(';')[1]), key, vector);
@@ -44,23 +42,23 @@ public class EncryptionServices : IEncryptionServices
     public string EncryptString(string text)
     {
         if (string.IsNullOrWhiteSpace(text) || IsEncrypted(text))
-        {
             // There is no need to encrypt null/empty or already encrypted text.
             return text;
-        }
 
         // Create a new random vector.
-        byte[] vector = GenerateInitializationVector();
+        var vector = GenerateInitializationVector();
 
         // Encrypt the text.
-        string encryptedText = Convert.ToBase64String(Encrypt(text, key, vector));
+        var encryptedText = Convert.ToBase64String(Encrypt(text, key, vector));
 
         // Format and return the encrypted data.
         return EncryptedValuePrefix + Convert.ToBase64String(vector) + ";" + encryptedText;
     }
 
-    public bool IsEncrypted(string text) =>
-        text.StartsWith(EncryptedValuePrefix, StringComparison.OrdinalIgnoreCase);
+    public bool IsEncrypted(string text)
+    {
+        return text.StartsWith(EncryptedValuePrefix, StringComparison.OrdinalIgnoreCase);
+    }
 
     private string Decrypt(byte[] encryptedBytes, byte[] key, byte[] vector)
     {

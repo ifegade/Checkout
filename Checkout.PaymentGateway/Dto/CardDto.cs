@@ -1,6 +1,3 @@
-using System;
-using System.Text.Json.Serialization;
-
 namespace Checkout.PaymentGateway.Dto;
 
 public class CardDto : CardBaseDTO

@@ -12,11 +12,11 @@ public interface IMerchantService
 
 public class MerchantService : IMerchantService
 {
-    private IList<MerchantModel> _merchants;
+    private readonly IList<MerchantModel> _merchants;
 
     public MerchantService()
     {
-        _merchants = new List<MerchantModel>()
+        _merchants = new List<MerchantModel>
         {
             new("1", "Amazon"),
             new("2", "Apple")

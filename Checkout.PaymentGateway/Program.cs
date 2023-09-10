@@ -4,28 +4,28 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using Checkout.PaymentGateway.Middleware;
-using Checkout.PaymentGateway.Utils;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Serilog;
-using Serilog.Events;
-using Serilog.Exceptions;
 using System.Reflection;
 using System.Text.Json.Serialization;
 using AutoMapper;
 using Checkout.PaymentGateway.Dto;
 using Checkout.PaymentGateway.Infrastructure;
+using Checkout.PaymentGateway.Middleware;
 using Checkout.PaymentGateway.Simulator;
+using Checkout.PaymentGateway.Utils;
 using FluentValidation.AspNetCore;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.HttpLogging;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Polly;
 using Polly.Extensions.Http;
+using Serilog;
+using Serilog.Events;
+using Serilog.Exceptions;
 
-string AppName = "PaymentGateway";
+var AppName = "PaymentGateway";
 
 var Configuration = GetConfiguration();
 
@@ -45,7 +45,7 @@ Log.Logger = new LoggerConfiguration()
     .CreateLogger();
 
 Log.Information("Starting web application");
-builder.Services.AddSingleton<Serilog.ILogger>(Log.Logger);
+builder.Services.AddSingleton(Log.Logger);
 builder.Host.UseSerilog();
 
 
@@ -90,7 +90,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddSingleton<IPaymentService, PaymentService>();
-builder.Services.AddHttpClient<CKOSimulator>(client =>
+builder.Services.AddHttpClient<ICKOSimulator, CKOSimulator>(client =>
     {
         client.BaseAddress = new Uri(builder.Configuration["BankUrl"]);
     })

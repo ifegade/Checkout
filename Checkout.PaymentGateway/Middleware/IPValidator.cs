@@ -24,10 +24,7 @@ public class IPValidator : ActionFilterAttribute
 
         Log.Information("Remote IpAddress: {@RemoteIp}", remoteIp);
 
-        if (remoteIp != null && remoteIp.IsIPv4MappedToIPv6)
-        {
-            remoteIp = remoteIp.MapToIPv4();
-        }
+        if (remoteIp != null && remoteIp.IsIPv4MappedToIPv6) remoteIp = remoteIp.MapToIPv4();
 
         if (!_merchantIpAddress.Contains(remoteIp))
         {

@@ -6,6 +6,7 @@ using AutoMapper;
 using Checkout.PaymentGateway.Dto;
 using Checkout.PaymentGateway.Dto.Messaging;
 using Checkout.PaymentGateway.Models;
+using Checkout.PaymentGateway.Repository;
 using Checkout.PaymentGateway.Simulator;
 using Checkout.PaymentGateway.Utils;
 using Newtonsoft.Json;
@@ -22,25 +23,28 @@ public interface IPaymentService
 
 public class PaymentService : IPaymentService
 {
+    private readonly ICKOSimulator _ckoSimulator;
+
     //this is a mock currency repository
-    private readonly IEnumerable<CurrencyDto> _currencies = new List<CurrencyDto>()
+    private readonly IEnumerable<CurrencyDto> _currencies = new List<CurrencyDto>
     {
         new(1, "£"),
         new(2, "$"),
-        new(3, "€"),
+        new(3, "€")
     };
 
-    private IList<TransactionModel> _mockTransactionsDB = new List<TransactionModel>();
-    private readonly IMapper _mapper;
-
-    private readonly CKOSimulator _ckoSimulator;
-    private readonly IMessagingService _messagingService;
     private readonly IEncryptionServices _encryptionService;
 
-    public PaymentService(CKOSimulator cko,
+    private readonly IMapper _mapper;
+    private readonly IMessagingService _messagingService;
+    private readonly ITransactionRepo _transactionRepo;
+
+    public PaymentService(
+        ICKOSimulator cko,
         IMessagingService messagingService,
         IEncryptionServices encryptionService,
-        IMapper mapper)
+        IMapper mapper,
+        ITransactionRepo transactionRepo)
     {
         _ckoSimulator = cko ??
                         throw new ArgumentNullException($"{nameof(cko)} cannot be null");
@@ -50,6 +54,8 @@ public class PaymentService : IPaymentService
                              throw new ArgumentNullException($"{nameof(encryptionService)} cannot be null");
         _mapper = mapper ??
                   throw new ArgumentNullException($"{nameof(mapper)} cannot be null");
+        _transactionRepo = transactionRepo ??
+                           throw new ArgumentNullException($"{nameof(transactionRepo)} cannot be null");
     }
 
     public async Task<ResponseDto<IEnumerable<CurrencyDto>>> GetCurrency(int? id)
@@ -66,7 +72,8 @@ public class PaymentService : IPaymentService
 
     public async Task<ResponseDto<IEnumerable<TransactionDto>>> GetTransaction(string merchantRef, string tRef)
     {
-        var transactions = _mockTransactionsDB.AsQueryable();
+        var transactions = await _transactionRepo.GetTransaction(merchantRef, tRef);
+
         if (!string.IsNullOrEmpty(tRef))
             transactions = transactions.Where(s => s.Id == Guid.Parse(tRef))
                 .AsQueryable();
@@ -75,7 +82,7 @@ public class PaymentService : IPaymentService
                 .AsQueryable();
 
         return new ResponseDto<IEnumerable<TransactionDto>>(
-            _mapper.Map<IEnumerable<TransactionDto>>(transactions.ToList()));
+            _mapper.Map<IEnumerable<TransactionDto>>(transactions));
     }
 
     public async Task<ResponseDto<TransactionDto>> MakePayments(PaymentDto content)
@@ -88,7 +95,7 @@ public class PaymentService : IPaymentService
             Id = Guid.NewGuid(),
             Amount = content.Amount,
             CurrencyId = content.CurrencyId,
-            Currency = _currencies.Where(s => s.Id == content.CurrencyId).Select(r => new CurrencyModel()
+            Currency = _currencies.Where(s => s.Id == content.CurrencyId).Select(r => new CurrencyModel
             {
                 Id = r.Id,
                 Character = r.Character
@@ -96,13 +103,13 @@ public class PaymentService : IPaymentService
             MerchantId = content.Merchant.Id,
             //defining merchant is not required here since it was validated at a controller level.
             //specifying it here is for the purpose of having a detailed response.
-            Merchant = new()
+            Merchant = new MerchantModel
             {
                 Name = content.Merchant.Name,
-                Id = content.Merchant.Id,
+                Id = content.Merchant.Id
             },
             Status = result.status ? TransactionStatusEnum.Successful : TransactionStatusEnum.Failed,
-            Card = new()
+            Card = new CardModel
             {
                 CardName = _encryptionService.EncryptString(content.Card.CardName),
                 CardNumber = _encryptionService.EncryptString(content.Card.CardNumber),
@@ -116,7 +123,7 @@ public class PaymentService : IPaymentService
          *This is meant to be an asynchronous call to execute a Store Procedure
          *written in SQL. The reason for using SQL is because the data is structured
          */
-        _mockTransactionsDB.Add(tModel);
+        await _transactionRepo.Add(tModel);
 
         /***
          * send event message to a messaging bus for the following reasons
@@ -124,7 +131,7 @@ public class PaymentService : IPaymentService
          *---- Logging
          *---- Analytics/Measurement/Experiement etc
          */
-        _messagingService.SendEventMessage(new EventMessage()
+        _messagingService.SendEventMessage(new EventMessage
         {
             EventType = EventType.PaymentNotification,
             Data = _encryptionService.EncryptString(JsonConvert.SerializeObject(tModel))

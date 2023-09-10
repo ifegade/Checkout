@@ -10,10 +10,6 @@ public interface IMessagingService
 
 public class MessagingService : IMessagingService
 {
-    public MessagingService()
-    {
-    }
-
     public void SendEventMessage(EventMessage message)
     {
         //send an event to a EventBus (Kafka/RabbitMQ)

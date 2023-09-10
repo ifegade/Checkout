@@ -6,31 +6,25 @@ using Checkout.PaymentGateway.Utils;
 
 namespace Checkout.PaymentGateway.Simulator;
 
-public class CKOSimulator
+public interface ICKOSimulator
 {
-    readonly Random rnd;
+    Task<(bool status, string message)> ProcessPayment(CardDto cardDetails, decimal amount, int currency,
+        string merchant);
+}
+
+public class CKOSimulator : ICKOSimulator
+{
     private readonly HttpClient _client;
+    private readonly Random rnd;
+
+    public CKOSimulator()
+    {
+    }
 
     public CKOSimulator(HttpClient client)
     {
         rnd = new Random();
         _client = client;
-    }
-
-    private async Task<bool> ValidCardDetails(CardDto cardDetails)
-    {
-        await Task.Delay(500);
-        return true; //rnd.Next(1, 10) % 2 == 0;
-    }
-
-    private async Task<bool> CanTransactionBeMade(CardDto cardDto, decimal amount)
-    {
-        //Does the user have the right amount
-        //Is the user within the limit for the day
-        //Is the Merchant Platform authorised by the user e.t.c
-        //All these validations are API calls within the banking system to validate a payment
-        await Task.Delay(500);
-        return true; //rnd.Next(1, 10) % 2 == 0;
     }
 
     public async Task<(bool status, string message)> ProcessPayment(CardDto cardDetails, decimal amount, int currency,
@@ -53,6 +47,22 @@ public class CKOSimulator
             return (paymentResult, MessageStrings.Successful);
 
         return (false, MessageStrings.UnTransactionSuccessful);
+    }
+
+    private async Task<bool> ValidCardDetails(CardDto cardDetails)
+    {
+        await Task.Delay(500);
+        return true; //rnd.Next(1, 10) % 2 == 0;
+    }
+
+    private async Task<bool> CanTransactionBeMade(CardDto cardDto, decimal amount)
+    {
+        //Does the user have the right amount
+        //Is the user within the limit for the day
+        //Is the Merchant Platform authorised by the user e.t.c
+        //All these validations are API calls within the banking system to validate a payment
+        await Task.Delay(500);
+        return true; //rnd.Next(1, 10) % 2 == 0;
     }
 
     private async Task<bool> DeductPayment(CardDto cardDetails, decimal amount, int currency)

@@ -28,7 +28,7 @@ public static class ExceptionMiddleware
                     Log.Error("Status Code : {@statusCode} \t Error Details: {@details}",
                         context.Response.StatusCode,
                         contextFeature.Error);
-                    var result = new ResponseDto<string>()
+                    var result = new ResponseDto<string>
                     {
                         response_code = ResponseCode.Unsuccessful,
                         response_message = MessageStrings.TryAgain

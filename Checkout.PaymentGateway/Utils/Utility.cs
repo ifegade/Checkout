@@ -14,7 +14,7 @@ public class Utility
 
     public static string MaskCardNumber(string cardNumber)
     {
-        int i = 0;
+        var i = 0;
         var number = cardNumber.ToCharArray();
         while (i < cardNumber.Length)
         {

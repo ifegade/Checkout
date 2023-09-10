@@ -8,8 +8,8 @@ public class MerchantModel
 
     public MerchantModel(string id, string name)
     {
-        this.Id = id;
-        this.Name = name;
+        Id = id;
+        Name = name;
     }
 
     public string Id { get; set; }

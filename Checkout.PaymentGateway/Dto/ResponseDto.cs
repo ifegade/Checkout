@@ -7,36 +7,36 @@ public class ResponseDto<T>
 {
     public ResponseDto()
     {
-        this.response_code = ResponseCode.Successful;
-        this.response_message = MessageStrings.Successful;
+        response_code = ResponseCode.Successful;
+        response_message = MessageStrings.Successful;
     }
-
-    [JsonPropertyName("isSuccessful")] public bool isSuccessful => response_code == ResponseCode.Successful;
 
     public ResponseDto(string message) : this()
     {
-        this.response_message = message;
+        response_message = message;
     }
 
     public ResponseDto(ResponseCode code, string message) : this()
     {
-        this.response_code = code;
-        this.response_message = message;
+        response_code = code;
+        response_message = message;
     }
 
     public ResponseDto(T data, string message) : this()
     {
-        this.response_code = ResponseCode.Successful;
-        this.content = data;
-        this.response_message = message;
+        response_code = ResponseCode.Successful;
+        content = data;
+        response_message = message;
     }
 
     public ResponseDto(T data) : this()
     {
-        this.response_code = ResponseCode.Successful;
-        this.content = data;
-        this.response_message = "Success";
+        response_code = ResponseCode.Successful;
+        content = data;
+        response_message = "Success";
     }
+
+    [JsonPropertyName("isSuccessful")] public bool isSuccessful => response_code == ResponseCode.Successful;
 
     public string response_message { get; set; }
     public ResponseCode response_code { get; set; }
