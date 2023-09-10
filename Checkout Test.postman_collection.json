@@ -1,0 +1,51 @@
+{
+	"info": {
+		"_postman_id": "ed112e59-a452-461d-a854-bf0b62ebc8de",
+		"name": "Checkout Test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1968151",
+		"_collection_link": "https://qavingai.postman.co/workspace/Ving-AI~5ffdf118-446e-4238-b4c5-232a53d42eb8/collection/1968151-ed112e59-a452-461d-a854-bf0b62ebc8de?action=share&source=collection_link&creator=1968151"
+	},
+	"item": [
+		{
+			"name": "Get Currency",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://127.0.0.1:7295/api/payment/getcurrency",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "7295",
+					"path": [
+						"api",
+						"payment",
+						"getcurrency"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Make Payment",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Get Transaction",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}

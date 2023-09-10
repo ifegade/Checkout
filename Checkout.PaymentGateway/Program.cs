@@ -10,6 +10,7 @@ using AutoMapper;
 using Checkout.PaymentGateway.Dto;
 using Checkout.PaymentGateway.Infrastructure;
 using Checkout.PaymentGateway.Middleware;
+using Checkout.PaymentGateway.Repository;
 using Checkout.PaymentGateway.Simulator;
 using Checkout.PaymentGateway.Utils;
 using FluentValidation.AspNetCore;
@@ -97,6 +98,7 @@ builder.Services.AddHttpClient<ICKOSimulator, CKOSimulator>(client =>
     .AddPolicyHandler(GetRetryPolicy())
     .AddPolicyHandler(GetCircuitBreakerPolicy());
 
+builder.Services.AddSingleton<ITransactionRepo, TransactionRepository>();
 builder.Services.AddSingleton<IMessagingService, MessagingService>();
 builder.Services.AddSingleton<IMerchantService, MerchantService>();
 builder.Services.AddSingleton<IEncryptionServices, EncryptionServices>();
