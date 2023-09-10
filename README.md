@@ -9,4 +9,10 @@
 - Global Exception handler : This captures all exceptions without the use of try catch in the code
 - AesAlgorithm : Used for Encryption & Decryption
 
-
+#### Endpoint
+Make Payment
+Get Transaction
+  - With Merchant Id
+  - With Transaction ID or
+  - With Both
+Get Currency
