@@ -4,7 +4,6 @@ public class MerchantModel
 {
     public MerchantModel()
     {
-        
     }
 
     public MerchantModel(string id, string name)
@@ -12,6 +11,7 @@ public class MerchantModel
         this.Id = id;
         this.Name = name;
     }
+
     public string Id { get; set; }
     public string Name { get; set; }
 }

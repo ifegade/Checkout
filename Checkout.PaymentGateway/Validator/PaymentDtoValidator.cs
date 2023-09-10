@@ -25,7 +25,7 @@ public class PaymentDtoValidator
 
                     return isMerchantValid.Result && isCurrencyValid.Result;
                 }
-            ) 
+            )
             .WithMessage("Merchant/Currency does not exist.");
 
         RuleFor(s => s.Card.CardName)

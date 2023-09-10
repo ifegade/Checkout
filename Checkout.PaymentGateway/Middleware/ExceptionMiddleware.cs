@@ -9,9 +9,11 @@ using Serilog;
 
 namespace Checkout.PaymentGateway.Middleware;
 
-
 public static class ExceptionMiddleware
 {
+    /***
+     * Global exception handler to structured format
+     */
     public static void ConfigureExceptionHandler(this IApplicationBuilder app)
     {
         app.UseExceptionHandler(appError =>
