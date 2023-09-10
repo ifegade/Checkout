@@ -19,17 +19,17 @@ Get Currency
 
 #### Library Used
 -- Automapper (Object transformation) <br />
--- Fluent Validation (Model Validation)
--- Swagger (API test in dev environment)
--- Polly (Retry)
--- Seriolog (Logging)
--- Shoudly (Test Assertions)
--- NSubstitute (Mock)
+-- Fluent Validation (Model Validation) <br />
+-- Swagger (API test in dev environment) <br />
+-- Polly (Retry) <br />
+-- Seriolog (Logging) <br />
+-- Shoudly (Test Assertions) <br />
+-- NSubstitute (Mock) <br />
 
 #### Implementation
----- Controller
---------- Service
--------------- Repository
+---- Controller <br />
+--------- Service <br />
+-------------- Repository <br />
 
 No actual db was used in this implementation, reason why I declare the Table Model repository as Singleton so as to keep the state of application
 
