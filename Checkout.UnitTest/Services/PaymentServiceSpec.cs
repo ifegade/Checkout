@@ -42,7 +42,7 @@ public class PaymentServiceSpec
     }
 
     private PaymentService _paymentService;
-    private ICKOSimulator _mockCKOSimulator;
+    private ICkoSimulator _mockCKOSimulator;
     private IMessagingService _mockMessagingService;
     private IEncryptionServices _mockEncryptionService;
     private IMapper _mockMapper;

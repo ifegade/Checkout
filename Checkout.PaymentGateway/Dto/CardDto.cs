@@ -1,13 +1,13 @@
 namespace Checkout.PaymentGateway.Dto;
 
-public class CardDto : CardBaseDTO
+public class CardDto : CardBaseDto
 {
     public int Year { get; set; }
-    public string CVV { get; set; }
+    public string Cvv { get; set; }
     public int Month { get; set; }
 }
 
-public class CardBaseDTO
+public class CardBaseDto
 {
     public string CardNumber { get; set; }
     public string CardName { get; set; }

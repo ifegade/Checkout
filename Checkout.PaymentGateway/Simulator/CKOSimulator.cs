@@ -6,13 +6,13 @@ using Checkout.PaymentGateway.Utils;
 
 namespace Checkout.PaymentGateway.Simulator;
 
-public interface ICKOSimulator
+public interface ICkoSimulator
 {
     Task<(bool status, string message)> ProcessPayment(CardDto cardDetails, decimal amount, int currency,
         string merchant);
 }
 
-public class CKOSimulator : ICKOSimulator
+public class CKOSimulator : ICkoSimulator
 {
     private readonly HttpClient _client;
     private readonly Random rnd;

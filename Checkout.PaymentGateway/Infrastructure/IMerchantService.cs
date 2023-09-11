@@ -26,6 +26,7 @@ public class MerchantService : IMerchantService
     /* A valid Merchant is a merchant that exist on the system
      * and has the right authorization & permission to make receive transaction
      * Here only the ID is being checked
+     * This is meant to be an asynchronous call hence the reason for async
      */
     public async Task<bool> IsMerchantValid(string merchantId)
     {

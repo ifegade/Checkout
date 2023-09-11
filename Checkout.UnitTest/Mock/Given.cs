@@ -11,7 +11,7 @@ public static class Given
 {
     public static IPaymentService APaymentService => Substitute.For<IPaymentService>();
     public static IMerchantService AMerchantService => Substitute.For<IMerchantService>();
-    public static ICKOSimulator ACKOSimulator => Substitute.For<ICKOSimulator>();
+    public static ICkoSimulator ACKOSimulator => Substitute.For<ICkoSimulator>();
     public static IMessagingService AMessagingService => Substitute.For<IMessagingService>();
     public static IEncryptionServices AEncryptionService => new EncryptionServices();
     public static IMapper AMapper => Substitute.For<IMapper>();

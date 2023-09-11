@@ -22,6 +22,7 @@ public class TransactionRepository : ITransactionRepo
 
     public async Task<IQueryable<TransactionModel>> GetTransaction(string merchantRef, string tRef)
     {
+        await Task.Delay(100);
         return _transactions.AsQueryable();
     }
 

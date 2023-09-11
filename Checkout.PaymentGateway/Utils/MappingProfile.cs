@@ -9,7 +9,7 @@ public class MappingProfile : Profile
     public MappingProfile(IEncryptionServices _encryption)
     {
         CreateMap<TransactionModel, TransactionDto>();
-        CreateMap<CardModel, CardBaseDTO>()
+        CreateMap<CardModel, CardBaseDto>()
             .ForMember(dest => dest.CardName,
                 opt =>
                     opt.MapFrom(src => _encryption.DecryptString(src.CardName)))

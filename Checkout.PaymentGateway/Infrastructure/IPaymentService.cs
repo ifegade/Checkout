@@ -23,7 +23,7 @@ public interface IPaymentService
 
 public class PaymentService : IPaymentService
 {
-    private readonly ICKOSimulator _ckoSimulator;
+    private readonly ICkoSimulator _ckoSimulator;
 
     //this is a mock currency repository
     private readonly IEnumerable<CurrencyDto> _currencies = new List<CurrencyDto>
@@ -40,7 +40,7 @@ public class PaymentService : IPaymentService
     private readonly ITransactionRepo _transactionRepo;
 
     public PaymentService(
-        ICKOSimulator cko,
+        ICkoSimulator cko,
         IMessagingService messagingService,
         IEncryptionServices encryptionService,
         IMapper mapper,
@@ -97,7 +97,6 @@ public class PaymentService : IPaymentService
             CurrencyId = content.CurrencyId,
             Currency = _currencies.Where(s => s.Id == content.CurrencyId).Select(r => new CurrencyModel
             {
-                Id = r.Id,
                 Character = r.Character
             }).FirstOrDefault(),
             MerchantId = content.Merchant.Id,
@@ -113,7 +112,7 @@ public class PaymentService : IPaymentService
             {
                 CardName = _encryptionService.EncryptString(content.Card.CardName),
                 CardNumber = _encryptionService.EncryptString(content.Card.CardNumber),
-                CVV = _encryptionService.EncryptString(content.Card.CVV),
+                CVV = _encryptionService.EncryptString(content.Card.Cvv),
                 Year = content.Card.Year,
                 Month = content.Card.Month
             }

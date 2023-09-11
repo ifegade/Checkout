@@ -44,7 +44,7 @@ public class PaymentDtoValidator
             .LessThanOrEqualTo(12)
             .WithMessage("Card Month is Invalid");
 
-        RuleFor(s => s.Card.CVV)
+        RuleFor(s => s.Card.Cvv)
             .NotNull()
             .NotEmpty()
             .Must(s => s?.Length == 3 && short.TryParse(s, out _))

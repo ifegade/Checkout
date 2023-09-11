@@ -9,7 +9,7 @@ public class TransactionDto
     public DateTime DateCreated { get; set; }
     public decimal Amount { get; set; }
     public CurrencyDto Currency { get; set; }
-    public CardBaseDTO Card { get; set; }
+    public CardBaseDto Card { get; set; }
     public MerchantDto Merchant { get; set; }
     public TransactionStatusEnum Status { get; set; }
 }

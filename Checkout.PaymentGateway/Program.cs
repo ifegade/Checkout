@@ -91,7 +91,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddSingleton<IPaymentService, PaymentService>();
-builder.Services.AddHttpClient<ICKOSimulator, CKOSimulator>(client =>
+builder.Services.AddHttpClient<ICkoSimulator, CKOSimulator>(client =>
     {
         client.BaseAddress = new Uri(builder.Configuration["BankUrl"]);
     })

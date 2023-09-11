@@ -53,7 +53,7 @@ public class PaymentDtoValidatorSpec
             {
                 CardNumber = "378282246310005",
                 CardName = "Test 01",
-                CVV = "111",
+                Cvv = "111",
                 Year = 2023,
                 Month = 1
             }
